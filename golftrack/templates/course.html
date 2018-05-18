@@ -1,0 +1,136 @@
+<!-- this is the template for viewing a golf course information -->
+{% extends "base_generic.html" %}
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-md-3">
+      <div>
+        <h3> {{ course.name }} </h3>
+        <h3> Par: {{ course.par }}</h3>
+        <h3> Length: {{ course.length }}</h3>
+      </div>    
+    </div>
+
+    <div class="col-md-3">
+      <div>
+        <table id ='rounds' style="width:75%">
+                  <tr>
+                    <th>Hole</th>
+                    <th>Length</th>
+                    <th>Par</th>
+                  </tr>
+                    <tr>
+                      <td> 1 </td>
+                      <td> {{ course.hole_1_yard }} </td>
+                      <td> {{ course.hole_1_par }} </td>
+                    </tr>
+                    <tr>
+                      <td> 2 </td>
+                      <td> {{ course.hole_2_yard }} </td>
+                      <td> {{ course.hole_2_par }} </td>
+                    </tr>
+                    <tr>
+                      <td> 3 </td>
+                      <td> {{ course.hole_3_yard }} </td>
+                      <td> {{ course.hole_3_par }} </td>
+                    </tr>
+                    <tr>
+                      <td> 4 </td>
+                      <td> {{ course.hole_4_yard }} </td>
+                      <td> {{ course.hole_4_par }} </td>
+                    </tr>
+                    <tr>
+                      <td> 5 </td>
+                      <td> {{ course.hole_5_yard }} </td>
+                      <td> {{ course.hole_5_par }} </td>
+                    </tr>
+                    <tr>
+                      <td> 6 </td>
+                      <td> {{ course.hole_6_yard }} </td>
+                      <td> {{ course.hole_6_par }} </td>
+                    </tr>
+                    <tr>
+                      <td> 7 </td>
+                      <td> {{ course.hole_7_yard }} </td>
+                      <td> {{ course.hole_7_par }} </td>
+                    </tr>
+                    <tr>
+                      <td> 8 </td>
+                      <td> {{ course.hole_8_yard }} </td>
+                      <td> {{ course.hole_8_par }} </td>
+                    </tr>
+                    <tr>
+                      <td> 9 </td>
+                      <td> {{ course.hole_9_yard }} </td>
+                      <td> {{ course.hole_9_par }} </td>
+                    </tr>
+                    <tr>
+                      <td> 10 </td>
+                      <td> {{ course.hole_10_yard }} </td>
+                      <td> {{ course.hole_10_par }} </td>
+                    </tr>
+                    <tr>
+                      <td> 11 </td>
+                      <td> {{ course.hole_11_yard }} </td>
+                      <td> {{ course.hole_11_par }} </td>
+                    </tr>
+                    <tr>
+                      <td> 12 </td>
+                      <td> {{ course.hole_12_yard }} </td>
+                      <td> {{ course.hole_12_par }} </td>
+                    </tr>
+                    <tr>
+                      <td> 13 </td>
+                      <td> {{ course.hole_13_yard }} </td>
+                      <td> {{ course.hole_13_par }} </td>
+                    </tr>
+                    <tr>
+                      <td> 14 </td>
+                      <td> {{ course.hole_14_yard }} </td>
+                      <td> {{ course.hole_14_par }} </td>
+                    </tr>
+                    <tr>
+                      <td> 15 </td>
+                      <td> {{ course.hole_15_yard }} </td>
+                      <td> {{ course.hole_15_par }} </td>
+                    </tr>
+                    <tr>
+                      <td> 16 </td>
+                      <td> {{ course.hole_16_yard }} </td>
+                      <td> {{ course.hole_16_par }} </td>
+                    </tr>
+                    <tr>
+                      <td> 17 </td>
+                      <td> {{ course.hole_17_yard }} </td>
+                      <td> {{ course.hole_17_par }} </td>
+                    </tr>
+                    <tr>
+                      <td> 18 </td>
+                      <td> {{ course.hole_18_yard }} </td>
+                      <td> {{ course.hole_18_par }} </td>
+                    </tr>
+         </table>
+      </div>   
+    </div>
+    
+    <div class="col-md-6">
+      <table id ='userRounds' style="width:100%">
+            <tr>
+              <th>Golfer</th>
+              <th>Score</th>
+              <th>Date</th>
+            </tr>
+            {% for round in rounds %}
+              <tr id="postitem" class="item">
+                <td id="golfer">{{ round.golfer }} </td>
+                <td id="totalScore">{{ round.get_total_score }} </td>
+                <td id="date">{{ round.date }} </td>
+
+              </tr>
+            {% endfor %}
+          </table>
+    </div>
+  </div>
+</div>
+{% endblock %}
