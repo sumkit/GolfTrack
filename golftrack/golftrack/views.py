@@ -261,9 +261,12 @@ def stats(request):
 		FIRs += round.fairways
 		GIRs += round.greens
 		putts += round.putts()
-		OnePutts += round.onePutts()
-		TwoPutts += round.twoPutts()
-		ThreePutts += round.threePutts()
+		# OnePutts += round.onePutts()
+		OnePutts += round.getNumPutts(1)
+		# TwoPutts += round.twoPutts()
+		TwoPutts += round.getNumPutts(2)
+		# ThreePutts += round.threePutts()
+		ThreePutts += round.getNumPutts(3)
 
 	handicap = handicapsum/len(rounds)
 	par3average = par3sum/len(rounds)

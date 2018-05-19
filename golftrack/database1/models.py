@@ -260,6 +260,92 @@ class golfround(models.Model):
 
 		return averageSum/len(puttList)
 
+	def getNumPutts(self, num):
+		puttList = [
+		self.hole_1_putts,
+		self.hole_2_putts,
+		self.hole_3_putts,
+		self.hole_4_putts,
+		self.hole_5_putts,
+		self.hole_6_putts,
+		self.hole_7_putts,
+		self.hole_8_putts,
+		self.hole_9_putts,
+		self.hole_10_putts,
+		self.hole_11_putts,
+		self.hole_12_putts,
+		self.hole_13_putts,
+		self.hole_14_putts,
+		self.hole_15_putts,
+		self.hole_16_putts,
+		self.hole_17_putts,
+		self.hole_18_putts,
+		]
+		count = 0
+		for hole in puttList:
+			if hole == num:
+				count += 1
+		return count
+
+	def get_handicap(self):
+		difficulty = self.golf_course.rating
+		score = self.get_total_score()
+		return score - difficulty
+
+	#get average for a certain par hole
+	def getAverage(self, par):
+		ScoreList = [
+		self.hole_1_score,
+		self.hole_2_score,
+		self.hole_3_score,
+		self.hole_4_score,
+		self.hole_5_score,
+		self.hole_6_score,
+		self.hole_7_score,
+		self.hole_8_score,
+		self.hole_9_score,
+		self.hole_10_score,
+		self.hole_11_score,
+		self.hole_12_score,
+		self.hole_13_score,
+		self.hole_14_score,
+		self.hole_15_score,
+		self.hole_16_score,
+		self.hole_17_score,
+		self.hole_18_score,
+		]
+
+		ParList = [
+		self.golf_course.hole_1_par,
+		self.golf_course.hole_2_par,
+		self.golf_course.hole_3_par,
+		self.golf_course.hole_4_par,
+		self.golf_course.hole_5_par,
+		self.golf_course.hole_6_par,
+		self.golf_course.hole_7_par,
+		self.golf_course.hole_8_par,
+		self.golf_course.hole_9_par,
+		self.golf_course.hole_10_par,
+		self.golf_course.hole_11_par,
+		self.golf_course.hole_12_par,
+		self.golf_course.hole_13_par,
+		self.golf_course.hole_14_par,
+		self.golf_course.hole_15_par,
+		self.golf_course.hole_16_par,
+		self.golf_course.hole_17_par,
+		self.golf_course.hole_18_par,
+		]
+
+		count = 0
+		score = 0
+		
+		for i in range(len(ParList)):
+			if ParList[i] == par:
+				score += ScoreList[i]
+				count += 1
+		return score/count
+
+'''
 	def onePutts(self):
 		puttList = [
 		self.hole_1_putts,
@@ -367,8 +453,8 @@ class golfround(models.Model):
 			if hole > 3:
 				count += 1
 		return count
-
-	def get_pars(self):
+'''
+def get_pars(self):
 		pars = 0
 		ScoreList = [
 		self.hole_1_score,
@@ -417,7 +503,7 @@ class golfround(models.Model):
 				pars += 1
 		return pars
 
-	def get_birdies(self):
+def get_birdies(self):
 		birdies = 0
 		ScoreList = [
 		self.hole_1_score,
@@ -466,7 +552,7 @@ class golfround(models.Model):
 				birdies += 1
 		return birdies
 
-	def get_eagles(self):
+def get_eagles(self):
 		eagles = 0
 		ScoreList = [
 		self.hole_1_score,
@@ -515,7 +601,7 @@ class golfround(models.Model):
 				eagles += 1
 		return eagles
 			
-	def get_bogeys(self):
+def get_bogeys(self):
 		bogeys = 0
 		ScoreList = [
 		self.hole_1_score,
@@ -564,7 +650,7 @@ class golfround(models.Model):
 				bogeys += 1
 		return bogeys
 
-	def get_doubles(self):
+def get_doubles(self):
 		doubles = 0
 		ScoreList = [
 		self.hole_1_score,
@@ -613,7 +699,7 @@ class golfround(models.Model):
 				doubles += 1
 		return doubles
 
-	def get_others(self):
+def get_others(self):
 		return (
 			18 - 
 			self.get_pars() - 
@@ -623,60 +709,8 @@ class golfround(models.Model):
 			self.get_doubles()
 			)
 
-	def par3average(self):
-		ScoreList = [
-		self.hole_1_score,
-		self.hole_2_score,
-		self.hole_3_score,
-		self.hole_4_score,
-		self.hole_5_score,
-		self.hole_6_score,
-		self.hole_7_score,
-		self.hole_8_score,
-		self.hole_9_score,
-		self.hole_10_score,
-		self.hole_11_score,
-		self.hole_12_score,
-		self.hole_13_score,
-		self.hole_14_score,
-		self.hole_15_score,
-		self.hole_16_score,
-		self.hole_17_score,
-		self.hole_18_score,
-		]
-
-		ParList = [
-		self.golf_course.hole_1_par,
-		self.golf_course.hole_2_par,
-		self.golf_course.hole_3_par,
-		self.golf_course.hole_4_par,
-		self.golf_course.hole_5_par,
-		self.golf_course.hole_6_par,
-		self.golf_course.hole_7_par,
-		self.golf_course.hole_8_par,
-		self.golf_course.hole_9_par,
-		self.golf_course.hole_10_par,
-		self.golf_course.hole_11_par,
-		self.golf_course.hole_12_par,
-		self.golf_course.hole_13_par,
-		self.golf_course.hole_14_par,
-		self.golf_course.hole_15_par,
-		self.golf_course.hole_16_par,
-		self.golf_course.hole_17_par,
-		self.golf_course.hole_18_par,
-		]
-
-		count = 0
-		score = 0
-		
-		for i in range(len(ParList)):
-			if ParList[i] == 3:
-				score += ScoreList[i]
-				count += 1
-		return score/count
-
-		
-	def par4average(self):
+'''		
+def par4average(self):
 		ScoreList = [
 		self.hole_1_score,
 		self.hole_2_score,
@@ -728,7 +762,7 @@ class golfround(models.Model):
 				count += 1
 		return score/count
 
-	def par5average(self):
+def par5average(self):
 		ScoreList = [
 		self.hole_1_score,
 		self.hole_2_score,
@@ -779,12 +813,7 @@ class golfround(models.Model):
 				score += ScoreList[i]
 				count += 1
 		return score/count
-
-	def get_handicap(self):
-		difficulty = self.golf_course.rating
-		score = self.get_total_score()
-		return score - difficulty
-
+'''
 
 	
 
