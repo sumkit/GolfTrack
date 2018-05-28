@@ -600,7 +600,7 @@ def get_eagles(self):
 			if ScoreList[i] + 2 == ParList[i]:
 				eagles += 1
 		return eagles
-			
+
 def get_bogeys(self):
 		bogeys = 0
 		ScoreList = [

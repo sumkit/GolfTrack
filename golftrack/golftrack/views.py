@@ -47,8 +47,8 @@ def inputRound(request):
 			date=form.cleaned_data['date']
 			golf_course=form.cleaned_data['golf_course']
 			fairways=form.cleaned_data['fairways']
-			greens=form.cleaned_data['grees']
-			putts=fom.cleaned_data['putts']
+			greens=form.cleaned_data['greens']
+			putts=form.instance.putts()
 			hole_1_score=form.cleaned_data['hole_1_score']
 			hole_2_score=form.cleaned_data['hole_2_score']
 			hole_3_score=form.cleaned_data['hole_3_score']
