@@ -1,0 +1,47 @@
+<!-- this is the user login form, (it uses the django user login form) -->
+{% extends "base_generic.html" %}
+
+{% block content %}
+
+
+<div class = 'container'>
+	<div class="row">
+		<div class="col-md-6">
+			{% if form.errors %}
+			<p>Your username and password didn't match. Please try again.</p>
+			{% endif %}
+
+			{% if next %}
+				{% if user.is_authenticated %}
+				<p>Your account doesn't have access to this page. To proceed, please log in
+				with an account that does.</p>
+				{% else %}
+				<p>Please login.</p>
+				{% endif %}
+			{% endif %}
+			  <h2>Login</h2>
+				<form method="post" action="{% url 'login' %}">
+				{% csrf_token %}
+			    {% for field in form %}
+			      <p>
+			        {{ field.label_tag }}<br>
+			        {{ field }}
+			        {% if field.help_text %}
+			          <small style="color: grey">{{ field.help_text }}</small>
+			        {% endif %}
+			        {% for error in field.errors %}
+			          <p style="color: red">{{ error }}</p>
+			        {% endfor %}
+			      </p>
+			    {% endfor %}
+
+				<div>
+				  <input type="submit" class="btn btn-success btn-sm" value="Login" />
+				  <input type="hidden" name="next" value="{{ next }}" />
+				</div>
+				</form>
+				<p><a href="{% url 'password_reset' %}">Lost password?</a></p>
+		</div>
+	</div>
+</div>
+{% endblock %}
