@@ -26,7 +26,7 @@ SECRET_KEY = 'z(_3k-myo&$dbuywn*!j-o0=i*jcwhgw*+stk_nfn!&z9+l$&q'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['cmugolftrack.herokuapp.com', '127.0.0.1', 'localhost']
 
 
 # Application definition
