@@ -1,0 +1,22 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+		<div class="container">
+			<div class="row">
+				<div>
+					<table id ='courses' style="width:100%">
+						<tr>
+							<th>Courses:</th>
+						</tr>
+						{% for course in courses %}
+							<tr id="postitem">
+								<td id="date">{{ course.name }} </td>
+							</tr>
+						{% endfor %}
+					</table>
+				</div>
+			</div>
+		</div>
+
+
+{% endblock %}

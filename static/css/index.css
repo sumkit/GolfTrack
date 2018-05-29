@@ -1,0 +1,9 @@
+#page-title:{
+	size: 100px;
+	color: red;
+}
+
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
