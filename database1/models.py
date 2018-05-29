@@ -8,7 +8,6 @@ from django.contrib.auth.models import User
 #all my models are created here
 
 class golf_course(models.Model):
-	# name = models.CharField(max_length=100, help_text='Golf Course Name')
 	name = models.CharField(max_length=25, help_text='Golf Course Name')
 	par = models.IntegerField()
 	length = models.IntegerField()
