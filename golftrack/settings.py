@@ -130,4 +130,3 @@ STATICFILES_DIRS = (
     # '/var/www/static/',
 )
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
-
