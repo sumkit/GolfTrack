@@ -229,8 +229,8 @@ def profile(request):
 def stats(request):
 	context = {}
 	rounds = golfround.objects.filter(golfer=request.user)
-
-	if len(rounds) = 0: 
+	print len(rounds)
+	if len(rounds) is 0: 
 		context['roundsplayed']=0
 		context['rounds']=rounds
 		context['handicap']=0
@@ -248,7 +248,6 @@ def stats(request):
 		puttingStats=[ 0, 0, 0]
 		context['puttingStats']=0
 		return render(request, 'stats.html', context)
-
 	#calculating averages for all data passed through context
 	roundsplayed = len(rounds)
 	handicapsum = 0
@@ -281,13 +280,9 @@ def stats(request):
 		FIRs += round.fairways
 		GIRs += round.greens
 		putts += round.putts()
-		# OnePutts += round.onePutts()
 		OnePutts += round.getNumPutts(1)
-		# TwoPutts += round.twoPutts()
-		TwoPutts += round.getNumPutts(2)
-		# ThreePutts += round.threePutts()
+		TwoPutts += round.getNumPutts(2)	
 		ThreePutts += round.getNumPutts(3)
-
 	handicap = handicapsum/len(rounds)
 	par3average = par3sum/len(rounds)
 	par4average = par4sum/len(rounds)
@@ -317,6 +312,4 @@ def stats(request):
 	context['PuttAv']=PuttAv
 	puttingStats=[ OnePutts, TwoPutts, ThreePutts]
 	context['puttingStats']=puttingStats
-
-	
 	return render(request, 'stats.html', context)
