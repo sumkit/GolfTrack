@@ -1,9 +1,18 @@
-#page-title:{
+#page-title {
 	size: 100px;
-	color: red;
 }
 
 table, th, td {
     border: 1px solid black;
     border-collapse: collapse;
+}
+
+.nav.navbar-nav.navbar li a {
+	color: #808080;
+}
+.nav.navbar-nav.navbar-left li a {
+	color: #808080;
+}
+.nav.navbar-nav.navbar-right li a {
+	color: #808080;
 }

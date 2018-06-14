@@ -4,73 +4,53 @@
 <head>
   {% block title %}<title>GolfTrack</title>{% endblock %}
   {% load static %}
-  <link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}">
 		 <!-- Latest compiled and minified CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
   <script src="//cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
-  <style>
-  	table, th, td {
-    	border: 1px solid lightblue;
-    	border-collapse: collapse;
-	}
-	th, td {
-    	padding: 5px;
-	}
-	th {
-    background-color: green;
-    color: white;
-	}
-
-  </style>
+  <link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}">
 </head>
 
 <body>
 	
-  {% block sidebar %}
-  	<div class="container">
-			<nav class="navbar navbar-light" style="background-color: #e3f2fd;">
-				<div class="container-fluid">
-				    <div class="navbar-header">
-				      	<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-				        <span class="sr-only">Toggle navigation</span>
-				        <span class="icon-bar"></span>
-				        <span class="icon-bar"></span>
-				        <span class="icon-bar"></span>
-				      	</button>
-				      	<a class="navbar-brand" href="/">GolfTrack</a>
-				    </div>
-				    <ul class="nav navbar-nav navbar-left">
-				    	{% if user.is_authenticated %}
-				    		<li><a href="{% url 'profile' %}">{{ user.username }} </a></li>
-				    	{% else %}
-				    		<li><a href="{% url 'register' %}">Register</a></li>
-				    	{% endif %}
-				    </ul>
-				    <ul class="nav navbar-nav navbar">
-				    	<li><a href="{% url 'courses' %}">Courses</a></li>
-				    </ul>
-				    
-				      <ul class="nav navbar-nav navbar-right">
-				      	{% if user.is_authenticated %}
-				      		<li><a href="{% url 'add-course' %}">Add Course</a></li>
-				      		<li><a href="{% url 'input_round' %}">Input Round</a></li>
-				      		<li><a href="{% url 'profile' %}?next={{request.path}}">Profile</a></li>
-				   			
-				        	<li><a href="{% url 'logout' %}?next={{request.path}}">Logout</a></li>
-				      	{% else %}
-				      		<li><a href="{% url 'add-course' %}?next={% url 'home' %}">Add Course</a></li>
-				      		<li><a href="{% url 'login' %}?next={% url 'profile' %}">Input Round</a></li>
-				      		<li><a href="{% url 'profile' %}?next={% url 'profile' %}">Profile</a></li>
-				      		<li><a href="{% url 'login' %}?next={% url 'profile' %}">Login</a></li>
-				      	{% endif %}
-				      </ul>
-				      </ul>
-				    </div><!-- /.navbar-collapse -->
-				  </div><!-- /.container-fluid -->
-			</nav>
-		</div>
-	{% endblock %}
+{% block sidebar %}
+<nav class="navbar navbar-default" style="background-color: #e3f2fd;">
+	<div class="container-fluid">
+    <div class="navbar-header">
+    	<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    	</button>
+    	<a class="navbar-brand" href="/" style="color: #808080; font-size:150%">GolfTrack</a>
+    </div> <!-- /.navbar-header -->
+	  <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+	    <ul class="nav navbar-nav navbar-left">
+	    	{% if user.is_authenticated %}
+	    		<li><a href="{% url 'profile' %}">{{ user.username }} </a></li>
+	    	{% else %}
+	    		<li><a href="{% url 'register' %}">Register</a></li>
+	    	{% endif %}
+	    </ul>
+	    <ul class="nav navbar-nav navbar">
+	    	<li><a href="{% url 'courses' %}">Courses</a></li>
+	    </ul>
+      <ul class="nav navbar-nav navbar-right">
+      	{% if user.is_authenticated %}
+      		<li><a href="{% url 'add-course' %}">Add Course</a></li>
+      		<li><a href="{% url 'input_round' %}">Input Round</a></li>
+        	<li><a href="{% url 'logout' %}?next={{request.path}}">Logout</a></li>
+      	{% else %}
+      		<li><a href="{% url 'add-course' %}?next={% url 'home' %}">Add Course</a></li>
+      		<li><a href="{% url 'login' %}?next={% url 'profile' %}">Input Round</a></li>
+      		<li><a href="{% url 'login' %}?next={% url 'profile' %}">Login</a></li>
+      	{% endif %}
+      </ul>
+		</div> <!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+{% endblock %}
   {% block content %}<!-- default content text (typically empty) -->{% endblock %}
 	<script src="{% static 'js/index.js' %}"></script>
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
