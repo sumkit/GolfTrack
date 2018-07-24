@@ -42,8 +42,6 @@
       		<li><a href="{% url 'input_round' %}">Input Round</a></li>
         	<li><a href="{% url 'logout' %}?next={{request.path}}">Logout</a></li>
       	{% else %}
-      		<li><a href="{% url 'add-course' %}?next={% url 'home' %}">Add Course</a></li>
-      		<li><a href="{% url 'login' %}?next={% url 'profile' %}">Input Round</a></li>
       		<li><a href="{% url 'login' %}?next={% url 'profile' %}">Login</a></li>
       	{% endif %}
       </ul>

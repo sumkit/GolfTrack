@@ -652,3 +652,6 @@ class golfround(models.Model):
 				score += ScoreList[i]
 				count += 1
 		return score/count
+
+class coach(models.Model):
+	user = models.OneToOneField(User, on_delete=models.CASCADE)

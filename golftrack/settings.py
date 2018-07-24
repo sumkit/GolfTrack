@@ -119,6 +119,10 @@ USE_L10N = True
 USE_TZ = True
 
 
+# URL to use if the authentication system requires a user to log in.
+LOGIN_URL = '/login/?next=/accounts/profile/'
+
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 

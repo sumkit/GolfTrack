@@ -40,6 +40,7 @@ def register(request):
 
 
 #adding round to database
+@login_required
 def inputRound(request):
 	if request.method == 'POST':
 		form = inputroundForm(request.POST)
@@ -96,6 +97,8 @@ def inputRound(request):
 	return render(request, 'golf_round_form.html', {'form': form})
 
 #add golf course to database
+# http://localhost:8000/add-course/?next=/
+@login_required
 def addCourse(request):
 	if request.method == 'POST':
 		form = courseForm(request.POST)
@@ -194,19 +197,17 @@ def CourseList(request):
 	courses = golf_course.objects.all()
 	for course in courses:
 		par = course.par
-
 	context['courses'] = courses
-	print(courses)
 	return render(request, 'golf_course_list.html', context)
 
 #display course info
+@login_required
 def course(request, course):
 	context={}
 	rounds = golfround.objects.filter(golf_course__name__startswith = course)
 	context['rounds']=rounds
 	CourseList = golf_course.objects.filter(name__startswith = course)
 	course = CourseList[0]
-	print(course)
 	context['course']=course
 	return render(request, 'course.html', context)
 
@@ -220,14 +221,90 @@ def profile(request):
 	user = request.user
 	context['username'] = user.username
 	context['rounds'] = rounds
-	print(rounds)
+	if coach.objects.get(user=request.user) != None:
+		context['is_coach'] = True
+	else:
+		context['is_coach'] = False
 	return render(request, 'profile.html', context)
 
+#coach's view of players' statistics page
+@login_required
+def coachStats(request):
+	context = {}
+	rounds = []
+	roundsplayed = 0
+	handicapsum = 0
+	parcount = 0
+	birdiecount = 0
+	bogeycount = 0
+	eaglecount = 0
+	doublecount = 0
+	otherscount = 0
+	par3sum = 0
+	par4sum = 0
+	par5sum = 0
+	FIRs = 0
+	GIRs = 0
+	putts = 0
+	OnePutts = 0
+	TwoPutts = 0
+	ThreePutts = 0
+	rounds = golfround.objects.filter(golf_course=request.GET.get('course')) 
+	roundsplayed = len(rounds)
+	for round in rounds:
+		parcount += round.get_pars()
+		birdiecount += round.get_birdies()
+		bogeycount += round.get_bogeys()
+		eaglecount += round.get_eagles()
+		doublecount += round.get_doubles()
+		otherscount += round.get_others()
+		par3sum += round.par3average()
+		par4sum += round.par4average()
+		par5sum += round.par5average()
+		FIRs += round.fairways
+		GIRs += round.greens
+		putts += round.putts()
+		OnePutts += round.getNumPutts(1)
+		TwoPutts += round.getNumPutts(2)
+		ThreePutts += round.getNumPutts(3)
+
+	handicap = handicapsum/len(rounds)
+	par3average = par3sum/len(rounds)
+	par4average = par4sum/len(rounds)
+	par5average = par5sum/len(rounds)
+	FIRav= FIRs/len(rounds)
+	GIRav= GIRs/len(rounds)
+	PuttAv= putts/len(rounds)
+	OnePutts /= len(rounds)
+	TwoPutts /= len(rounds)
+	ThreePutts /= len(rounds)
+	averages = [ par3average, par4average, par5average]
+	averages1 = [ FIRav, GIRav]
+	
+	context['roundsplayed']=roundsplayed
+	context['rounds']=rounds
+	context['handicap']=handicap
+	context['parcount']=parcount
+	context['birdiecount']=birdiecount
+	context['bogeycount']=bogeycount
+	context['eaglecount']=eaglecount
+	context['doublecount']=doublecount
+	context['otherscount']=otherscount
+	context['averages']=averages
+	context['averages1']=averages1
+	context['FIRav'] = FIRav
+	context['GIRav'] = GIRav
+	context['PuttAv']=PuttAv
+	puttingStats=[ OnePutts, TwoPutts, ThreePutts]
+	context['puttingStats']=puttingStats
+
+	return render(request, 'stats.html', context)
 
 #profile statistics page
 @login_required
 def stats(request):
 	context = {}
+	players = User.objects.all()
 	rounds = golfround.objects.filter(golfer=request.user)
 	if len(rounds) is 0: 
 		context['roundsplayed']=0
@@ -279,11 +356,8 @@ def stats(request):
 		FIRs += round.fairways
 		GIRs += round.greens
 		putts += round.putts()
-		# OnePutts += round.onePutts()
 		OnePutts += round.getNumPutts(1)
-		# TwoPutts += round.twoPutts()
 		TwoPutts += round.getNumPutts(2)
-		# ThreePutts += round.threePutts()
 		ThreePutts += round.getNumPutts(3)
 
 	handicap = handicapsum/len(rounds)
@@ -316,5 +390,4 @@ def stats(request):
 	puttingStats=[ OnePutts, TwoPutts, ThreePutts]
 	context['puttingStats']=puttingStats
 
-	
 	return render(request, 'stats.html', context)

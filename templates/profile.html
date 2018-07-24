@@ -13,9 +13,18 @@
 						<button class="btn btn-success btn-sm">
 							<a href="{% url 'profile' %}">Profile</a></li>
 						</button >
+						{% if is_coach %} 
+						<button class="btn btn-success btn-sm">
+							<a href="{% url 'course_stats' %}">Course Stats</a></li>
+						</button >
+						<button class="btn btn-success btn-sm">
+							<a href="{% url 'profile_stats' %}">Player Stats</a></li>
+						</button >
+						{% else %}
 						<button class="btn btn-success btn-sm">
 							<a href="{% url 'profile_stats' %}">Stats</a></li>
 						</button >
+						{% endif %}
 				</div>
 			</div>
 			<div class="row">

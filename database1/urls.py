@@ -6,7 +6,6 @@ from golftrack import views
 
 #urls file for the app
 
-
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.home, name = 'home'),
@@ -16,6 +15,7 @@ urlpatterns = [
     url(r'^add-course/', views.addCourse, name = 'add-course'),
     url(r'^courses/', views.CourseList, name = 'courses'),
     url(r'^profile/stats', views.stats, name = 'profile_stats'),
+    url(r'^profile/course_stats', views.courseStats, name = 'course_stats'),
     #url(r'^myrounds/$', views.golferRounds.as_view(), name='my-rounds'),
     url(r'^accounts/', include('django.contrib.auth.urls')),
     url(r'^course/(?P<course>[a-zA-Z0-9_.-]+)', views.course,name='course')
