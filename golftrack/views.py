@@ -221,9 +221,10 @@ def profile(request):
 	user = request.user
 	context['username'] = user.username
 	context['rounds'] = rounds
-	if coach.objects.get(user=request.user) != None:
+	try:
+		temp = coach.objects.get(user=request.user)
 		context['is_coach'] = True
-	else:
+	except coach.DoesNotExist:
 		context['is_coach'] = False
 	return render(request, 'profile.html', context)
 
