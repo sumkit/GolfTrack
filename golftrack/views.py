@@ -3,7 +3,7 @@ from django.views import generic
 from django.views.generic.base import View
 from django.urls import reverse
 from django.contrib.auth.models import User
-from database1.models import golf_course, golfround
+from database1.models import *
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import login, authenticate
